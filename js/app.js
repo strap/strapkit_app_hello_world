@@ -1,3 +1,5 @@
+var StrapKit = require('strapkit');
+
 var parseFeed = function(data, quantity) {
     var items = [];
     for (var i = 0; i < quantity; i++) {
@@ -39,7 +41,7 @@ var formatDateTime = function(date) { // This is to display 12 hour format like 
 
 var app_id = "njgrse2JSpYBpFCSa";
 
-StrapKit.Metrics.init(app_id);
+StrapKit.Metrics.Init(app_id);
 
 // Show splash screen while waiting for data
 var splashPage = StrapKit.UI.Page();
