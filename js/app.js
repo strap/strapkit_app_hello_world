@@ -39,15 +39,9 @@ var formatDateTime = function(date) { // This is to display 12 hour format like 
     return strTime;
 };
 
-var strap_params = {
-    // *** change the app id! *** //
-    app_id: "aS7DXLiJBx8BYp6y2",
-    resolution: "144x168",
-    useragent: "PEBBLE/2.0"
-};
+var app_id = "aS7DXLiJBx8BYp6y2";
 
-
-StrapKit.Metrics.Init(strap_params);
+StrapKit.Metrics.Init(app_id);
 
 // Show splash screen while waiting for data
 var splashPage = StrapKit.UI.Page();
