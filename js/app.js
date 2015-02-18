@@ -7,8 +7,21 @@ var parseFeed = function(data, quantity) {
         var title = data.list[i].weather[0].main;
         title = title.charAt(0).toUpperCase() + title.substring(1);
 
+        StrapKit.Metrics.logEvent(data.list[i].dt_txt);
 
-        var date = new Date(data.list[i].dt_txt);
+        var dateText = data.list[i].dt_txt;
+
+        // Make a date from the string
+        var shortDate =  dateText.split(" ");
+
+        var firstDate = shortDate[0].split('-');
+
+        var secondDate = shortDate[1].split(':');
+
+        var date = new Date(firstDate[0],firstDate[1],firstDate[2],secondDate[0],secondDate[1],secondDate[2]);
+
+        StrapKit.Metrics.logEvent(date);
+
 
         var displayDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ' ' + formatDateTime(date);
 
@@ -39,7 +52,7 @@ var formatDateTime = function(date) { // This is to display 12 hour format like 
     return strTime;
 };
 
-var app_id = "aS7DXLiJBx8BYp6y2";
+var app_id = "RhLqA7DmqpsS6pisd";
 
 StrapKit.Metrics.Init(app_id);
 
@@ -60,7 +73,7 @@ StrapKit.Metrics.logEvent("/show/splashPage");
 
 // Make request to openweathermap.org
 StrapKit.HttpClient({
-        url: 'http://api.openweathermap.org/data/2.5/forecast?q=London',
+        url: 'http://api.openweathermap.org/data/2.5/forecast?q=Cincinnati',
         type: 'json'
     },
     function(data) {
@@ -86,10 +99,10 @@ StrapKit.HttpClient({
             // Capitalize first letter
             content = content.charAt(0).toUpperCase() + content.substring(1);
 
-            // Add temperature, pressure etc
-            content += '\nTemperature: ' + Math.round(forecast.main.temp - 273.15) + '°C' + '\nPressure: ' + Math.round(forecast.main.pressure) + ' mbar' +
-                '\nWind: ' + Math.round(forecast.wind.speed) + ' mph, ' +
-                Math.round(forecast.wind.deg) + '°';
+            // // Add temperature, pressure etc
+            // content += '\nTemperature: ' + Math.round(e.item.forecast.main.temp - 273.15) + '°C' + '\nPressure: ' + Math.round(forecast.main.pressure) + ' mbar' +
+            //     '\nWind: ' + Math.round(forecast.wind.speed) + ' mph, ' +
+            //     Math.round(forecast.wind.deg) + '°';
 
             var detailPage = StrapKit.UI.Page();
             // Create the Card for detailed view
